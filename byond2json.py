@@ -38,9 +38,8 @@ def hub2dict(game : str = "Exadv1/SpaceStation13") -> dict:
     data["screenshots"] = int(lines[18].split(" = ")[1])
     data["video"] = lines[19].strip().split(" = ")[1]
     worlds = []
-    counter = 21
     worlddata = {}
-    while counter < len(lines[20:]):
+    for counter in range(21, len(lines[20:])):
         if lines[counter].strip().startswith("world/") or lines[counter].strip() == "":
             worlds.append(worlddata)
             worlddata = {}
@@ -54,7 +53,6 @@ def hub2dict(game : str = "Exadv1/SpaceStation13") -> dict:
             if key == "server_version":
                 value = int(value)
             worlddata[key] = value
-        counter += 1
     data["worlds"] = worlds
     return data
 
