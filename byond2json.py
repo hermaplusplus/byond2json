@@ -96,6 +96,3 @@ def player2json(player : str = "Exadv1", indent : int = 4) -> str:
     :return: JSON string mirroring the player data.
     """
     return json.dumps(player2dict(player), indent=indent)
-
-if __name__ == "__main__":
-    print(player2json("Herma"))
