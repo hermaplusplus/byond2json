@@ -64,3 +64,38 @@ def hub2json(game : str = "Exadv1/SpaceStation13", indent : int = 4) -> str:
     :return: JSON string mirroring the hub data.
     """
     return json.dumps(hub2dict(game), indent=indent)
+
+def player2dict(player : str = "Exadv1") -> dict:
+    """
+    Converts BYOND player data to a dictionary.
+    :param player: player to get the data for. e.g. "Exadv1"
+    :return: dictionary mirroring the player data.
+    """
+    player = requests.get(f"https://secure.byond.com/members/{player}?format=text")
+    if player.status_code != 200:
+        raise Exception(f"byond2json: Failed to get player data for {player}! Request returns {player.status_code}")
+    data = {}
+    lines = player.content.decode("latin-1").split("\n")
+    for l in range(0, len(lines)):
+        if " = " in lines[l]:
+            if lines[l].strip().split(" = ")[1].startswith("\""):
+                lines[l] = lines[l].replace("\"", "", 1)
+            if lines[l].strip().endswith("\""):
+                lines[l] = lines[l][:-2]
+    for counter in range(1, len(lines[1:])):
+        key = lines[counter].strip().split(" = ")[0]
+        value = lines[counter].strip().split(" = ")[1]
+        data[key] = value
+    return data
+
+def player2json(player : str = "Exadv1", indent : int = 4) -> str:
+    """
+    Converts BYOND player data to a JSON string.
+    :param player: player to get the data for. e.g. "Exadv1"
+    :param indent: JSON indent level. Default is 4.
+    :return: JSON string mirroring the player data.
+    """
+    return json.dumps(player2dict(player), indent=indent)
+
+if __name__ == "__main__":
+    print(player2json("Herma"))
