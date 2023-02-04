@@ -19,3 +19,7 @@ from byond2json import hub2json
 # print the current hub listing as JSON
 print(hub2json("Exadv1/SpaceStation13"))
 ```
+
+## Known Issues
+
+* The hub tends to omit the last few (typically 3/4) hub entries from the output.
