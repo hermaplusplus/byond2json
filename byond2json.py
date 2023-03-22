@@ -45,7 +45,11 @@ def hub2dict(game : str = "Exadv1/SpaceStation13") -> dict:
             worlddata = {}
         else:
             key = lines[counter].strip().split(" = ")[0]
-            value = lines[counter].strip().split(" = ")[1]
+            value = lines[counter].strip().split(" = ")
+            if len(value) == 2:
+                value = value[1]
+            else:
+                value = ""
             if key == "players":
                 value = value.replace("list(\"", "").replace("\")", "").split("\",\"")
                 if value == ["list()"]:
