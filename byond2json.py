@@ -87,6 +87,8 @@ def player2dict(player : str = "Exadv1") -> dict:
             if lines[l].strip().endswith("\""):
                 lines[l] = lines[l][:-2]
     for counter in range(1, len(lines[1:])):
+        if lines[counter].strip().startswith("world/"):
+            return data
         key = lines[counter].strip().split(" = ")[0]
         value = lines[counter].strip().split(" = ")[1]
         data[key] = value
