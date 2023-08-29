@@ -56,6 +56,8 @@ def hub2dict(game : str = "Exadv1/SpaceStation13") -> dict:
                     value = []
             if key == "server_version":
                 value = int(value)
+            if key == "status =":
+                key = "status"
             worlddata[key] = value
     data["worlds"] = worlds
     return data
